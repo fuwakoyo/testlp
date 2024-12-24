@@ -59,7 +59,7 @@ export default function contact() {
     const publicId = process.env.NEXT_APP_EMAILJS_PUBLIC_ID; // Public Keyを取得
     
       try {
-        await emailjs.send(serviceId, templateId, data.content, publicId)
+        await emailjs.send(serviceId, templateId, data.content)
       } catch (error) {
       console.error("エラーが出ました" + error)
       }
