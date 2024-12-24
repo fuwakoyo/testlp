@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { z, ZodError } from "zod";
+import { useForm } from 'react-hook-form';
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import emailjs from 'emailjs-com';
+
 
 
 export default function contact() {
@@ -54,12 +55,20 @@ export default function contact() {
   //const onSubmit:SubmitHandler<Inputs> = (data) => console.log(data)
 
   const submitMail = async (data:Inputs) => {
-    const serviceId = process.env.NEXT_APP_EMAILJS_SERVICE_ID; //ServeceIDを取得
-    const templateId = process.env.NEXT_APP_EMAILJS_TEMPLATE_ID;// TemplateIDを取得
-    const publicId = process.env.NEXT_APP_EMAILJS_PUBLIC_ID; // Public Keyを取得
+    const serviceId= process.env.NEXT_PUBLIC_REACT_APP_EMAILJS_SERVICE_ID; //ServeceIDを取得
+    const templateId = process.env.NEXT_PUBLIC_REACT_APP_EMAILJS_TEMPLATE_ID;// TemplateIDを取得
+    const publicId = process.env.NEXT_PUBLIC_REACT_APP_EMAILJS_PUBLIC_ID; // Public Keyを取得
+
+    const template_param = {
+      to_name:data.name,
+      message:data.content
+    }
+
+    
     
       try {
-        await emailjs.send(serviceId, templateId, data.content)
+    
+        await emailjs.send(serviceId as string, templateId as string, template_param,publicId)
       } catch (error) {
       console.error("エラーが出ました" + error)
       }
@@ -71,22 +80,22 @@ export default function contact() {
     <div className="flex justify-center">
     <form className="space-y-6 w-1/3 flex-col" onSubmit={handleSubmit(submitMail)}> 
       <div>   
-        <p>aaa</p>     
+        <p>名前</p>     
       <Input {...register('name')}/>            
       {errors.name && errors.name.message}
       </div>   
       <div>
-      <p>aaa</p>
+      <p>メールアドレス</p>
       <Input {...register('mail')} />
       {errors.mail && errors.mail.message}
       </div>
       <div>
-      <p>aaa</p>
+      <p>電話番号</p>
       <Input {...register('phone')} />
       {errors.phone && errors.phone.message}
       </div>
       <div>
-      <p>aaa</p>
+      <p>お問い合わせ内容</p>
       <Textarea {...register('content')} className="h-40"/>
       {errors.content && errors.content.message}      
       </div>

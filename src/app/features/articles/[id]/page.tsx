@@ -9,7 +9,7 @@ const Detailpage = async ({params}:{params:{id:string}}) => {
 
   return (
     <>
-      <div className="justify-center flex">
+      <div className="justify-center flex min-h-screen">
         <div className="bg-red-100 size-2/3">
           {detailArticle.map((article:any)=>
             (
