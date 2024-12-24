@@ -13,7 +13,6 @@ const Uploader = () => {
   const handleUpload = async () =>{
     //fileが選択されていなかったら返す
     if(!file) return
-    console.log(`testfolder/${file.name}`)
 
     try {
       const { data, error } = await supabase.storage

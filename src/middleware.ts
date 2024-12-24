@@ -23,7 +23,7 @@ export default auth((req) => {
       }
 
     if (isAuthRoute) {
-        if (!isLoggedIn || email !== "abc@gmail.com") {
+        if (!isLoggedIn || email !== "fuwakoyo@gmail.com") {
           return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
         }
          return null; 
@@ -33,6 +33,14 @@ export default auth((req) => {
   
 
 
-export const config = {
-    matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+// export const config = {
+//     matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+//   };
+
+  export const config = {
+    matcher: [
+      '/((?!.+\\.[\\w]+$|_next).*)',  // 静的ファイルや _next を除外
+      '/features/:path*',             // /features 配下のすべてのページに適用
+      '/(api|trpc)(.*)'               // /api または /trpc 配下に適用
+    ],
   };
